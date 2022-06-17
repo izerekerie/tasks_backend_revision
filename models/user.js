@@ -3,11 +3,11 @@ import Joi from "joi";
 const  userSchema=mongoose.Schema({
     name:{
         type:String,
-        required:[true,'Pleasse add a name']
+        required:[true,'Please add a name']
     },
     email:{
         type:String,
-        required:[true,'Please add ana email'],
+        required:[true,'Please add an email'],
         unique:true
     },
     password:{
@@ -18,10 +18,12 @@ const  userSchema=mongoose.Schema({
 })
 
 export const User=mongoose.model('User',userSchema);
+
+
 export const validate=(user)=>{
 const schema=Joi.object({
-name:Joi.string().required,
-email:Joi.string().required(),
+name:Joi.string().required(),
+email:Joi.string().required().email(),
 password:Joi.string().required()
 });
 return schema.validate(user);

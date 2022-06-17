@@ -11,7 +11,7 @@ export const createCategory= async(req,res)=>{
     }catch(error){
       res.status(500).json({
        error:true,
-       message:'could not save th category'
+       message:'could not save  category'
       })
     }
 
@@ -44,7 +44,7 @@ res.status(200).json (categories);
 
 }
 export const updateCategory= async(req,res)=>{
-   
+   console.log("herer updating")
     const id = req.params.id;
     const cat=req.body
   

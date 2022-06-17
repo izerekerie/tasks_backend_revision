@@ -4,12 +4,14 @@ import dotenv  from 'dotenv'
 import taskRoutes from './routes/task.js'
 import userRoutes from './routes/user.js'
 import categoryRoutes from './routes/category.js'
+import bodyParser from 'body-parser';
+ import  cors from 'cors';
 const app=express();
 dotenv.config();
 app.use(express.json({limit:'30mb',extended:true}));
 app.use(express.urlencoded({extended:true,limit:"30mb"}));
 app.use(express.text({limit:'30mb'}));
-
+ app.use(cors());
 app.get('/',(req,res)=>{
     res.send('Welcome to our app')
 })

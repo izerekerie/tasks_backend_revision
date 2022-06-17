@@ -5,8 +5,8 @@ const router=express.Router();
 import {auth} from '../middleware/auth'
 router.get('/',getTasks);
 router.get('/:id',getTask);
-router.post('/',auth,createTask);
-router.post('/:id',auth,updateTask);
+router.post('/',createTask);
+router.put('/:id',auth,updateTask);
 router.delete('/:id',auth,deleteTask);
 
 export default router
