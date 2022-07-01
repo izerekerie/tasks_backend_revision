@@ -40,27 +40,145 @@
 
                     }
                 }
+            
                
             },
           "/tasks":{
              "get":{
                 "tags":["Tasks"],
                 "summary":"Get All Tasks",
-                 "parameters":[{
-                    "name":"Authorization",
-                    "in":"header",
-                    "description":"Authorization token",
-                    "required":true
-                 }],
+              
                 "responses":{
                     "200":{
                         "description":"OK",
                         "schema":{
-                            "ref":"#/definitions/Tasks"
+                            "ref":"#/definitions/Task"
                         }
                     }
                 }
-             } 
+             },
+             "post":{
+                "tags":["Tasks"],
+                "summary":"Create task",
+                "parameters":[
+                    {
+                        "name":"Authorization",
+                        "in":"header",
+                    
+                        "descirption":"Aunthication token",
+                        "required":true
+                    },
+                    {
+                    "name":"task",
+                    "in":"body",
+                    "description":"task data",
+                    "schema":{
+                        "type":"object",
+                        "required":["title","category","createdBy"],
+                        "properties":{
+                          "title":{"type":"string"},
+                          "category":{"type":"string"},
+                          "createdBy":{"type":"string"}
+                        }
+                    }
+                }],
+                "responses":{
+                    "200":{
+                        "description":"OK",
+                        "schema":{
+                            "ref":"#/definitions/Task"
+                        }
+                    },
+                    "404":{
+                        "description":"NOT_FOUND"
+                       
+                    }
+                }
+                
+               }
+            
+          },
+          "/tasks/{id}":{
+            "parameters":[
+                {
+                "name":"Authorization",
+                "in":"header",
+                "descirption":"Aunthication token",
+                "required":true
+            },{
+                "name":"id",
+                "in":"path",
+                "type":"string",
+                "required":true
+            }
+            ],
+           "get":{
+            "tags":["Tasks"],
+            "summary":"Get one task",
+            "responses":{
+                "200":{
+                    "description":"OK",
+                    "schema":{
+                        "ref":"#/definitions/Task"
+                    }
+                   },
+                "404":{
+                    "description":"NOT FOUND"
+                }
+
+            }
+           
+           },
+          
+           "delete":{
+            "tags":["Tasks"],
+            "summary":"Delete one task",
+           
+            "responses":{
+                "200":{
+                    "description":"OK",
+                    "schema": {
+                        "type": "object"
+                      }
+                },
+                "404":{
+                    "description":"NOT FOUND"
+                }
+            }
+         },
+         "put":{
+            "tags":["Tasks"],
+            "summary":"Update a task",
+             "parameters":[
+                {
+                    "name":"task",
+                    "in":"body",
+                    "description":"task data",
+                    
+                    "schema":{
+                      "type":"string",
+                      "required":["title","category","category"],
+                      "properties":{
+                        "title":{"type":"string"},
+                        "createdBy":{"type":"string"},
+                        "category":{"type":"string"}
+                      }
+                    }
+                }
+            
+             ],
+             "responses":{
+                "200":{
+                    "description":"OK",
+                    "schema":{
+                        "ref":"#/definitions/Task"
+                    }
+                },
+                "404":{
+                    "description":"NOT FOUND"
+                }
+             }
+         } 
           },
          "/users/signin":{
             "post":{
@@ -90,8 +208,15 @@
                         "schema":{
                                 "ref":"#/definitions/User"
                         }
+                    },
+                    "404":{
+                         "description":"NOT FOUND",
+                         "schema":{
+                            "ref":"#/definitions/User"
+                         }
                     }
                 }
+
             }
          },
          "/users/signup":{

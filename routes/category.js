@@ -1,6 +1,10 @@
 import express  from "express";
 import { createCategory, deleteCategory, getCategories, getCategory, updateCategory } from "../controllers/category.js";
 import {auth} from '../middleware/auth'
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
 const router=express.Router();
 
 
@@ -132,4 +136,4 @@ router.post('/',createCategory);
 router.put('/:id',updateCategory);
 router.delete('/:id',deleteCategory);
 
-export default router
+export default router;
