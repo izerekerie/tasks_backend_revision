@@ -25,7 +25,7 @@ export const getTask=async(req,res)=>{
 const id=req.params.id
     try{
     if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).send('no category with that id')
+        return res.status(404).send('no task with that id'+id)
     }
     const task=await Task.findById(id);
     res.status(200).json(task);
@@ -37,7 +37,7 @@ export const deleteTask= async(req,res)=>{
     const id=req.params.id
     try{
     if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).send('no category with that id')
+        return res.status(404).send('no task with that id')
     }
     await Task.findByIdAndDelete(id);
     res.status(200).json({message:'task deleted sucessfully'});
