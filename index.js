@@ -4,14 +4,39 @@ import dotenv  from 'dotenv'
 import taskRoutes from './routes/task.js'
 import userRoutes from './routes/user.js'
 import categoryRoutes from './routes/category.js'
-import bodyParser from 'body-parser';
- import  cors from 'cors';
+import swaggerJsDoc from 'swagger-jsdoc'
+import swaggerUI from 'swagger-ui-express'
+import swaggerDocument from './swagger.json' assert {type:'json'};
+import  cors from 'cors';
 const app=express();
 dotenv.config();
 app.use(express.json({limit:'30mb',extended:true}));
 app.use(express.urlencoded({extended:true,limit:"30mb"}));
 app.use(express.text({limit:'30mb'}));
- app.use(cors());
+app.use(cors());
+
+// const swaggerOptions={
+//     swaggerDefinition: {
+//         openapi:'3.0.0',
+//         info: {
+//             title:'TODO  API',
+//             version:'1.0.0',
+//             descirption:"A simple tod app API"
+//         },
+//         servers:[
+//             {
+//                 url:'http://localhost:2000'
+//             }
+//         ],
+      
+//     },
+//     apis:["./routes/*.js"],
+
+// }
+// const swaggerDocs=swaggerJsDoc(swaggerOptions);
+// console.log(swaggerDocs)
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocument))
+
 app.get('/',(req,res)=>{
     res.send('Welcome to our app')
 })

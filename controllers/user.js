@@ -20,7 +20,7 @@ const createdUser= await User.create({name,email,password:hashedPassword})
 
 const token=jwt.sign({id:createdUser._id},
     process.env.JWT_SECRET,
-    {expiresIn:'1h'});
+    {expiresIn:'2h'});
  res.status(200).json({createdUser,token});
 }catch(error){
 res.status(500).json(error.message)
@@ -39,7 +39,7 @@ export const sign_in=async(req,res)=>{
         const isPasswordCorrect = await bcrypt.compare(password,existingUser.password);
         if( existingUser && isPasswordCorrect) {
            const token=jwt.sign({id:existingUser._id},
-             process.env.JWT_SECRET,{expiresIn:'1h'}
+             process.env.JWT_SECRET,{expiresIn:'2h'}
             )
 
             res.status(200).json({existingUser,token});

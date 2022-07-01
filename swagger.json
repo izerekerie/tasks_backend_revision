@@ -1,0 +1,184 @@
+{
+    "swagger":"2.0",
+    "info":{
+        "version":"1.0.0",
+        "title":"TODO App CRUD",
+        "description":"Simple todo app project"
+    },
+        "host":"localhost:2000",
+        "basepath":"/",
+        "tags":[ 
+           { "name":"Categories",
+            "description":"Categories API"
+        
+          },
+          {
+            "name":"Tasks",
+            "description":"Tasks API"
+          },
+          {
+            "name":"Users",
+            "description":"Users API"
+          }
+          
+        ],
+        "schemes":["http"],
+        "consumes":["application/json"],
+        "produces":["application/json"],
+        "paths":{
+            "/categories":{
+                "get":{
+                    "tags":["Categories"],
+                    "summary":"Get All categories",
+                    "responses":{
+                        "200":{
+                            "description":"OK",
+                            "schema":{
+                                "ref":"#/definitions/Categories"
+                            }
+                        }
+
+                    }
+                }
+               
+            },
+          "/tasks":{
+             "get":{
+                "tags":["Tasks"],
+                "summary":"Get All Tasks",
+                 "parameters":[{
+                    "name":"Authorization",
+                    "in":"header",
+                    "description":"Authorization token",
+                    "required":true
+                 }],
+                "responses":{
+                    "200":{
+                        "description":"OK",
+                        "schema":{
+                            "ref":"#/definitions/Tasks"
+                        }
+                    }
+                }
+             } 
+          },
+         "/users/signin":{
+            "post":{
+                "tags":["Users"],
+                "summary":"Login in",
+                "parameters":[{
+                    "name":"user",
+                    "in":"body",
+                    "description":"User credentials",
+                    "schema":{
+                        "type":"object",
+                        "required":["email","password"],
+                        "properties":{
+                        "email":{
+                            "type":"string"
+                         },
+                         "password":{
+                            "type":"string"
+                         }    
+                    
+                        }
+                    }
+                }],
+                "responses":{
+                    "200":{
+                        "description":"OK",
+                        "schema":{
+                                "ref":"#/definitions/User"
+                        }
+                    }
+                }
+            }
+         },
+         "/users/signup":{
+            
+            "post":{
+                "tags":["Users"],
+                "summary":"Sign up",
+                "parameters":[{
+                    "name":"user",
+                    "in":"body",
+                    "descirption":"user data",
+                    "schema":{
+                        "type":"object",
+                        "required":["name","email","password"],
+                        
+                            "properties":{
+                                "name":{"type":"string"},
+                                "email":{"type":"string"},
+                                "password":{"type":"string"}
+                            
+                          
+                        }
+
+                    }
+                }],
+                "responses":{
+                    "200":{
+                        "description":"OK",
+                       "schema":{
+                        "ref":"#/definitions/User"
+                       }
+                    }
+                }
+            }
+         }
+
+        },
+        "defintions":{
+            "Category":{
+                "required":["id","name","createdBy"],
+                "properties":{
+                    "_id":{
+                        "type":"string",
+                        "uniqueItems":true
+                    },
+                    "name":{
+                        "type":"string" 
+                    },
+                    "createdBy":{
+                        "type":"string"
+                    }
+                }
+            },
+            "Task":{
+             "required":["id","title","category","createdBy"],
+                "properties":{
+                    "_id":{
+                        "type":"string",
+                        "uniqueItems":true
+                    },
+                    "title":{
+                      "type":"string"
+                    },
+                    "category":{
+                        "type":"string"
+                    },
+                    "createdBy":{
+                        "type":"string"
+                    }
+                }
+             
+            },
+            "User":{
+                "required":["id","name","password"],
+                "properties":{
+                   "_id":{
+                    "type":"string","uniqueItems":true
+                   },
+                   "name":{
+                    "type":"string"
+                   },
+                   "password":{
+                    "type":"string"
+                   } 
+                }
+            }
+
+        }
+
+    }

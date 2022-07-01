@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import Category from "../models/category"
+import Task from "../models/task";
 export const createCategory= async(req,res)=>{
     const cat=req.body;
     const newCategory=new Category(cat);
@@ -72,3 +73,4 @@ await Category.findByIdAndDelete(id);
 res.json({message:'category deleted sucessfully'})
 
 }
+

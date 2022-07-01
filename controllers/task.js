@@ -9,7 +9,7 @@ export const createTask=async(req,res)=>{
        await newTask.save();
        res.status(201).json(newTask);
     }catch(error){
-        res.status(404).json(error.response.data)
+        res.status(404).json(error.message.data)
     }
 
 }
@@ -45,10 +45,18 @@ export const deleteTask= async(req,res)=>{
         res.status(404).json(error.response.data);
     }
 }
-export const getTaskSearch=async(req,res)=>{
-
-    req.params;
-}
+export const getTaskSearch= async(req,res)=>{
+    const {query}=req.params
+    
+    try{
+     
+    const tasks=await Task.find({title:{$regex:query,$options:'i'}});
+    res.status(200).json(tasks)
+    console.log("searched",tasks)
+    }catch(error){
+    res.status(404).json({message:error.message});
+    }
+    }
 
 export const updateTask= async(req,res)=>{
 
